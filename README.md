@@ -9,3 +9,14 @@ Starter project for the Jackbox In Motion game jam.
 - PurrNet docs: https://purrnet.dev/docs
 - PurrNet Discord: https://discord.gg/pnDZBbgNyB
 - ScoreSpace Discord: https://discord.gg/scorespace-481868362041917450
+
+## Testing
+
+You can test and iterate your game directly via the `MainGame` scene inside `Assets/Scenes/MainGame.scene`.
+
+Alternatively you can also go through the `MainMenu` scene to test with friends via the lobby setup.
+You don't need to worry about managing transports, PurrNet deals with the entire flow.
+
+For more information on how the lobby works go here: https://purrnet.dev/docs/tools/purrlobby.
+
+<img width="1918" height="882" alt="image" src="https://github.com/user-attachments/assets/b9483b18-de41-413c-98ff-ded6da164752" />
