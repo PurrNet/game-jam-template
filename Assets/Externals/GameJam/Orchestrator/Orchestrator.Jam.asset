@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: PurrLobby.Runtime::PurrLobby.MenuOrchestrator
   sessionProvider: {fileID: 11400000, guid: f3595a4b475d69c40920509baf248ca3, type: 2}
   lobbyProvider: {fileID: 11400000, guid: d1be39662603b4f4f8a6b7ad16475b55, type: 2}
-  matchmakingProvider: {fileID: 11400000, guid: 8d5dd6a728f583a43b9dd65a47a4ac8e, type: 2}
+  matchmakingProvider: {fileID: 0}
   gameAllocator: {fileID: 11400000, guid: fcc6ba2799dd18b4f8e693f5b875a78e, type: 2}
