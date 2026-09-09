@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c775d8c82442a40907c8969d62b035, type: 3}
+  m_Name: JamTheme
+  m_EditorClassIdentifier: PurrUI.Runtime::PurrNet.UI.ColorPalette
+  _black: {r: 0.019607844, g: 0.023529414, b: 0.023529414, a: 1}
+  _white: {r: 1, g: 1, b: 1, a: 1}
+  _muted: {r: 0.62352943, g: 0.62352943, b: 0.6627451, a: 1}
+  _background: {r: 0.019607844, g: 0.023529414, b: 0.023529414, a: 1}
+  _foreground: {r: 1, g: 1, b: 1, a: 1}
+  _surface: {r: 0.09019608, g: 0.09411766, b: 0.10196079, a: 1}
+  _surfaceForeground: {r: 1, g: 1, b: 1, a: 1}
+  _accent: {r: 0.9803922, g: 1, b: 0, a: 1}
+  _accentForeground: {r: 0, g: 0, b: 0, a: 1}
+  _success: {r: 0.09019608, g: 0.78823537, b: 0.3921569, a: 1}
+  _successForeground: {r: 0.09411766, g: 0.09411766, b: 0.10588236, a: 1}
+  _warning: {r: 1, g: 0.6156863, b: 0, a: 1}
+  _warningForeground: {r: 0.09411766, g: 0.09411766, b: 0.10588236, a: 1}
+  _danger: {r: 0.8588236, g: 0.23137257, b: 0.24313727, a: 1}
+  _dangerForeground: {r: 0.98823535, g: 0.98823535, b: 0.98823535, a: 1}
+  _styles:
+    buttonRoundness:
+      full: 0
+      pixels: 5
+    panelRoundness:
+      full: 0
+      pixels: 5
+    inputRoundness:
+      full: 0
+      pixels: 5
+    itemRoundness:
+      full: 0
+      pixels: 5
+    buttonTransitionDuration: 0.2
+    buttonDisabledOpacity: 0.5
+    buttonPressedScale: 0.9
+    toggleTransitionDuration: 0.1
+    inputTransitionDuration: 0.15
+    inputFocusWidth: 2
