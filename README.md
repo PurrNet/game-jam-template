@@ -20,3 +20,9 @@ You don't need to worry about managing transports, PurrNet deals with the entire
 For more information on how the lobby works go here: https://purrnet.dev/docs/tools/purrlobby.
 
 <img width="1918" height="882" alt="image" src="https://github.com/user-attachments/assets/b9483b18-de41-413c-98ff-ded6da164752" />
+
+## Building
+
+We recommend using WebGL and to publish it with Unity tooling.
+
+<img width="471" height="187" alt="image" src="https://github.com/user-attachments/assets/fe3f77be-4e1a-4679-b5f7-ec0bd434e960" />
