@@ -26,3 +26,7 @@ For more information on how the lobby works go here: https://purrnet.dev/docs/to
 We recommend using WebGL and to publish it with Unity tooling.
 
 <img width="471" height="187" alt="image" src="https://github.com/user-attachments/assets/fe3f77be-4e1a-4679-b5f7-ec0bd434e960" />
+
+Make sure you have the WebGL module installed in your editor version.
+
+<img width="1273" height="714" alt="image" src="https://github.com/user-attachments/assets/8b76149f-abf2-4128-a788-4f6101dc781c" />
