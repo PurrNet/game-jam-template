@@ -1,0 +1,126 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5489470750442800436
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3820098720286823964, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_Name
+      value: SessionManager Jam
+      objectReference: {fileID: 0}
+    - target: {fileID: 7493943172186080671, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: _colorPalette
+      value: 
+      objectReference: {fileID: 11400000, guid: 4b37004a356fac44d82a7dc6d738c320, type: 2}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943053978182348908, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3820098720286823964, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 6492247728207080574}
+    - targetCorrespondingSourceObject: {fileID: 3820098720286823964, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+      insertIndex: 2
+      addedObject: {fileID: 1454789416626031383}
+  m_SourcePrefab: {fileID: 100100000, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+--- !u!1 &8731691447768879912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3820098720286823964, guid: 4550829d8e61e6042bd77dac5d1429ae, type: 3}
+  m_PrefabInstance: {fileID: 5489470750442800436}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6492247728207080574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8731691447768879912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baacc2bfe126d544691d4f39fa3785f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.NetworkManager
+  _stopPlayingOnDisconnect: 0
+  _startServerFlags: 9
+  _startClientFlags: 7
+  _cookieScope: 1
+  _dontDestroyOnLoad: 0
+  _transport: {fileID: 1454789416626031383}
+  _networkPrefabs: {fileID: 11400000, guid: 16004bc232c138041a6289a36e3b6dd5, type: 2}
+  _networkAssets: {fileID: 11400000, guid: 40ac75afad542e741b1c990bf9efc313, type: 2}
+  _networkRules: {fileID: 11400000, guid: d8799083b96579a42b8b2d03e4ceae98, type: 2}
+  _visibilityRules: {fileID: 11400000, guid: 8f014a5bd8dc68646a2a3c0b18c5bbd8, type: 2}
+  _authenticator: {fileID: 0}
+  _tickRate: 20
+  _mtuExceededBehaviour: 2
+  _patchLingeringProcessBug: 0
+--- !u!114 &1454789416626031383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8731691447768879912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc64ff707d914a64e95f2ac0bf554c09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: PurrNet.Runtime::PurrNet.Transports.UDPTransport
+  _automaticCloudSetups:
+    _adaptToEdgegap: 1
+  _serverPort: 5000
+  _maxConnections: 100
+  _address: 127.0.0.1
+  _timeoutInSeconds: 5
+  _useNativeSockets: 1
+  _networkSimulation:
+    includeInBuild: 0
+    simulateLatency: 0
+    minLatency: 30
+    maxLatency: 100
+    simulatePacketLoss: 0
+    packetLossChance: 10
