@@ -1,3 +1,31 @@
+# [1.1.0-beta.6](https://github.com/PurrNet/PurrLobby/compare/v1.1.0-beta.5...v1.1.0-beta.6) (2026-09-12)
+
+
+### Bug Fixes
+
+* mark purrtransport rooms with the context they were created in ([f613fed](https://github.com/PurrNet/PurrLobby/commit/f613fed6c7d302e727bf3e4f3b9162c088a72fe7))
+
+# [1.1.0-beta.5](https://github.com/PurrNet/PurrLobby/compare/v1.1.0-beta.4...v1.1.0-beta.5) (2026-09-12)
+
+
+### Bug Fixes
+
+* enable NAT for lobby by default ([89bc31a](https://github.com/PurrNet/PurrLobby/commit/89bc31a5d19d25bc67be57a098bbe083898657cb))
+
+# [1.1.0-beta.4](https://github.com/PurrNet/PurrLobby/compare/v1.1.0-beta.3...v1.1.0-beta.4) (2026-09-12)
+
+
+### Features
+
+* loading screen + game orchestrator p2p option ([e803f2f](https://github.com/PurrNet/PurrLobby/commit/e803f2fac1301c72a9d2f575ea0bd8dcdac65323))
+
+# [1.1.0-beta.3](https://github.com/PurrNet/PurrLobby/compare/v1.1.0-beta.2...v1.1.0-beta.3) (2026-09-12)
+
+
+### Features
+
+* allow PurrTransportGameAllocator to use P2P ([5226137](https://github.com/PurrNet/PurrLobby/commit/52261379baad7ff7f988f1413002f5246e1a2629))
+
 # [1.1.0-beta.2](https://github.com/PurrNet/PurrLobby/compare/v1.1.0-beta.1...v1.1.0-beta.2) (2026-09-09)
 
 

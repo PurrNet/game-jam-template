@@ -120,7 +120,6 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 31
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -230,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f638caaa99f0e74c9eb8ec7bf0601c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: PurrNet.Lobby::PurrNet.Lobby.LobbyManager
-  _orchestrator: {fileID: 11400000, guid: 704da3cbd39612a40a56993c820af3f2, type: 2}
+  _orchestrator: {fileID: 11400000, guid: f02d169f427ffae46bdb5ee7f435a4ee, type: 2}
   _stack: {fileID: 8425919481821664929}
 --- !u!114 &8425919481821664929
 MonoBehaviour:
