@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LobbyManager Jam
       objectReference: {fileID: 0}
+    - target: {fileID: 6843563540068316891, guid: 559c5e2f7cecfe14f9d1e276dabd933d, type: 3}
+      propertyPath: _orchestrator
+      value: 
+      objectReference: {fileID: 11400000, guid: 704da3cbd39612a40a56993c820af3f2, type: 2}
     - target: {fileID: 7619080357301862172, guid: 559c5e2f7cecfe14f9d1e276dabd933d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
