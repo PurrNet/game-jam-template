@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -31,6 +32,8 @@ public sealed class PaintEditorCanvas : MonoBehaviour
     private RawImage penLayer;
     private Texture2D markerTexture;
     private Texture2D penTexture;
+    private Color32[] markerPixels;
+    private Color32[] penPixels;
     private Slider sizeSlider;
     private Text sizeLabel;
     private Text toolLabel;
@@ -39,9 +42,26 @@ public sealed class PaintEditorCanvas : MonoBehaviour
     private Color32 activeColor = new(0, 0, 0, 255);
     private Vector2Int previousPixel;
     private bool drawing;
+    private readonly List<List<PixelChange>> undoHistory = new();
+    private List<PixelChange> currentStroke;
+    private HashSet<int> currentStrokeIndices;
 
     private static readonly Color32 Transparent = new(0, 0, 0, 0);
     private static readonly Color32 MarkerAlpha = new(255, 255, 255, 90);
+
+    private readonly struct PixelChange
+    {
+        public readonly int Index;
+        public readonly Color32 Marker;
+        public readonly Color32 Pen;
+
+        public PixelChange(int index, Color32 marker, Color32 pen)
+        {
+            Index = index;
+            Marker = marker;
+            Pen = pen;
+        }
+    }
 
     private void Awake()
     {
@@ -79,6 +99,7 @@ public sealed class PaintEditorCanvas : MonoBehaviour
 
         if (mouse.leftButton.wasPressedThisFrame && inside)
         {
+            BeginStroke();
             drawing = true;
             previousPixel = pixel;
             DrawLine(pixel, pixel);
@@ -90,7 +111,10 @@ public sealed class PaintEditorCanvas : MonoBehaviour
         }
 
         if (mouse.leftButton.wasReleasedThisFrame)
+        {
             drawing = false;
+            FinishStroke();
+        }
     }
 
     public void SetOpen(bool open)
@@ -102,6 +126,8 @@ public sealed class PaintEditorCanvas : MonoBehaviour
 
         rootCanvas.enabled = open;
         raycaster.enabled = open;
+        if (drawing)
+            FinishStroke();
         drawing = false;
     }
 
@@ -130,18 +156,19 @@ public sealed class PaintEditorCanvas : MonoBehaviour
         layout.childForceExpandWidth = false;
         layout.childForceExpandHeight = true;
 
-        CreateButton("Back", toolbar.transform, new Color32(75, 82, 99, 255), () => SetOpen(false), 70f);
+        CreateButton("Back", toolbar.transform, new Color32(75, 82, 99, 255), UndoLastStroke, 70f);
         CreateButton("Pen", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Pen), 62f);
         CreateButton("Marker", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Marker), 78f);
         CreateButton("Eraser", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Eraser), 76f);
 
         AddSpacer(toolbar.transform, 8f);
         AddColorButton(toolbar.transform, "Black", Color.black);
-        AddColorButton(toolbar.transform, "White", Color.white);
         AddColorButton(toolbar.transform, "Red", Color.red);
         AddColorButton(toolbar.transform, "Blue", new Color32(30, 110, 255, 255));
         AddColorButton(toolbar.transform, "Green", new Color32(20, 185, 80, 255));
         AddColorButton(toolbar.transform, "Yellow", Color.yellow);
+        AddColorButton(toolbar.transform, "Purple", new Color32(155, 80, 220, 255));
+        AddColorButton(toolbar.transform, "Orange", new Color32(255, 140, 25, 255));
 
         AddSpacer(toolbar.transform, 8f);
         sizeLabel = CreateLabel("Size: 8", toolbar.transform, 64f);
@@ -164,13 +191,22 @@ public sealed class PaintEditorCanvas : MonoBehaviour
 
     private void CreateDrawingTextures()
     {
-        markerTexture = CreateTransparentTexture("Paint Marker Layer");
-        penTexture = CreateTransparentTexture("Paint Pen Layer");
+        markerPixels = CreateTransparentPixels();
+        penPixels = CreateTransparentPixels();
+        markerTexture = CreateTransparentTexture("Paint Marker Layer", markerPixels);
+        penTexture = CreateTransparentTexture("Paint Pen Layer", penPixels);
         markerLayer.texture = markerTexture;
         penLayer.texture = penTexture;
     }
 
-    private Texture2D CreateTransparentTexture(string textureName)
+    private Color32[] CreateTransparentPixels()
+    {
+        var pixels = new Color32[textureWidth * textureHeight];
+        Array.Fill(pixels, Transparent);
+        return pixels;
+    }
+
+    private Texture2D CreateTransparentTexture(string textureName, Color32[] pixels)
     {
         var texture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGBA32, false)
         {
@@ -178,8 +214,6 @@ public sealed class PaintEditorCanvas : MonoBehaviour
             filterMode = FilterMode.Bilinear,
             wrapMode = TextureWrapMode.Clamp
         };
-        var pixels = new Color32[textureWidth * textureHeight];
-        Array.Fill(pixels, Transparent);
         texture.SetPixels32(pixels);
         texture.Apply(false);
         return texture;
@@ -213,8 +247,7 @@ public sealed class PaintEditorCanvas : MonoBehaviour
             Stamp(Vector2Int.RoundToInt(Vector2.Lerp(from, to, t)));
         }
 
-        markerTexture.Apply(false);
-        penTexture.Apply(false);
+        ApplyPixels();
     }
 
     private void Stamp(Vector2Int center)
@@ -233,22 +266,82 @@ public sealed class PaintEditorCanvas : MonoBehaviour
             if (px < 0 || py < 0 || px >= textureWidth || py >= textureHeight)
                 continue;
 
+            var index = py * textureWidth + px;
+            RecordPixelBeforeChange(index);
+
             if (activeTool == PaintTool.Eraser)
             {
-                markerTexture.SetPixel(px, py, Transparent);
-                penTexture.SetPixel(px, py, Transparent);
+                markerPixels[index] = Transparent;
+                penPixels[index] = Transparent;
             }
             else if (activeTool == PaintTool.Marker)
             {
                 var markerColor = activeColor;
                 markerColor.a = MarkerAlpha.a;
-                markerTexture.SetPixel(px, py, markerColor);
+                markerPixels[index] = markerColor;
             }
             else
             {
-                penTexture.SetPixel(px, py, activeColor);
+                penPixels[index] = activeColor;
             }
         }
+    }
+
+    private void BeginStroke()
+    {
+        currentStroke = new List<PixelChange>();
+        currentStrokeIndices = new HashSet<int>();
+    }
+
+    private void RecordPixelBeforeChange(int index)
+    {
+        if (currentStrokeIndices == null || !currentStrokeIndices.Add(index))
+            return;
+
+        currentStroke.Add(new PixelChange(index, markerPixels[index], penPixels[index]));
+    }
+
+    private void FinishStroke()
+    {
+        if (currentStroke is { Count: > 0 })
+        {
+            undoHistory.Add(currentStroke);
+            if (undoHistory.Count > 30)
+                undoHistory.RemoveAt(0);
+        }
+
+        currentStroke = null;
+        currentStrokeIndices = null;
+    }
+
+    private void UndoLastStroke()
+    {
+        if (drawing)
+        {
+            drawing = false;
+            FinishStroke();
+        }
+
+        if (undoHistory.Count == 0)
+            return;
+
+        var lastIndex = undoHistory.Count - 1;
+        var stroke = undoHistory[lastIndex];
+        undoHistory.RemoveAt(lastIndex);
+        foreach (var change in stroke)
+        {
+            markerPixels[change.Index] = change.Marker;
+            penPixels[change.Index] = change.Pen;
+        }
+        ApplyPixels();
+    }
+
+    private void ApplyPixels()
+    {
+        markerTexture.SetPixels32(markerPixels);
+        penTexture.SetPixels32(penPixels);
+        markerTexture.Apply(false);
+        penTexture.Apply(false);
     }
 
     private void SelectTool(PaintTool tool)
