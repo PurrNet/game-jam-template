@@ -19,6 +19,7 @@ public sealed class PaintEditorCanvas : MonoBehaviour
     [SerializeField, Min(128)] private int textureWidth = 1280;
     [SerializeField, Min(128)] private int textureHeight = 720;
     [SerializeField] private bool startOpen;
+    [SerializeField] private bool blackPenOnly;
 
     [Header("Default brush sizes")]
     [SerializeField, Range(2, 64)] private int penSize = 8;
@@ -157,24 +158,27 @@ public sealed class PaintEditorCanvas : MonoBehaviour
         layout.childForceExpandHeight = true;
 
         CreateButton("Back", toolbar.transform, new Color32(75, 82, 99, 255), UndoLastStroke, 70f);
-        CreateButton("Pen", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Pen), 62f);
-        CreateButton("Marker", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Marker), 78f);
-        CreateButton("Eraser", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Eraser), 76f);
+        if (!blackPenOnly)
+        {
+            CreateButton("Pen", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Pen), 62f);
+            CreateButton("Marker", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Marker), 78f);
+            CreateButton("Eraser", toolbar.transform, new Color32(75, 82, 99, 255), () => SelectTool(PaintTool.Eraser), 76f);
 
-        AddSpacer(toolbar.transform, 8f);
-        AddColorButton(toolbar.transform, "Black", Color.black);
-        AddColorButton(toolbar.transform, "Red", Color.red);
-        AddColorButton(toolbar.transform, "Blue", new Color32(30, 110, 255, 255));
-        AddColorButton(toolbar.transform, "Green", new Color32(20, 185, 80, 255));
-        AddColorButton(toolbar.transform, "Yellow", Color.yellow);
-        AddColorButton(toolbar.transform, "Purple", new Color32(155, 80, 220, 255));
-        AddColorButton(toolbar.transform, "Orange", new Color32(255, 140, 25, 255));
+            AddSpacer(toolbar.transform, 8f);
+            AddColorButton(toolbar.transform, "Black", Color.black);
+            AddColorButton(toolbar.transform, "Red", Color.red);
+            AddColorButton(toolbar.transform, "Blue", new Color32(30, 110, 255, 255));
+            AddColorButton(toolbar.transform, "Green", new Color32(20, 185, 80, 255));
+            AddColorButton(toolbar.transform, "Yellow", Color.yellow);
+            AddColorButton(toolbar.transform, "Purple", new Color32(155, 80, 220, 255));
+            AddColorButton(toolbar.transform, "Orange", new Color32(255, 140, 25, 255));
+            AddSpacer(toolbar.transform, 8f);
+        }
 
-        AddSpacer(toolbar.transform, 8f);
         sizeLabel = CreateLabel("Size: 8", toolbar.transform, 64f);
         sizeSlider = CreateSlider(toolbar.transform);
         sizeSlider.onValueChanged.AddListener(OnSizeChanged);
-        toolLabel = CreateLabel("Pen", toolbar.transform, 70f);
+        toolLabel = CreateLabel(blackPenOnly ? "Black Pen" : "Pen", toolbar.transform, blackPenOnly ? 100f : 70f);
 
         var surfaceFrame = CreateImage("Drawing Surface", backdrop.transform, new Color32(213, 216, 222, 255));
         Stretch(surfaceFrame.rectTransform, Vector2.zero, Vector2.one, new Vector2(14f, 14f), new Vector2(-14f, -90f));
@@ -348,7 +352,7 @@ public sealed class PaintEditorCanvas : MonoBehaviour
     {
         activeTool = tool;
         if (toolLabel != null)
-            toolLabel.text = tool.ToString();
+            toolLabel.text = blackPenOnly ? "Black Pen" : tool.ToString();
         if (sizeSlider != null)
             sizeSlider.SetValueWithoutNotify(GetCurrentSize());
         UpdateSizeLabel();
